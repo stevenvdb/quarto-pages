@@ -1,0 +1,5 @@
+theme: jekyll-theme-slate
+
+# Tell Jekyll not to ignore presentation
+include:
+  - presentation
