@@ -42,6 +42,8 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
+          git checkout main-presentation
+          git merge main
           git add -f docs/presentation
           git commit -m "Update Quarto presentation" || echo "No changes to commit"
           git push
