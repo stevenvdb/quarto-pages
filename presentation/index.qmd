@@ -25,3 +25,7 @@ This presentation will show you examples of what you can do with Quarto and [Rev
 -   Activating scroll view
 
 ...and much more
+
+## Second slide
+
+This is another slide
