@@ -22,6 +22,9 @@ jobs:
 
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # fetch all history and branches
+          ref: main        # start from main
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
@@ -42,8 +45,16 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git checkout main-presentation
-          git merge main
+          # Fetch remote branches so 'main-presentation' exists locally
+          git fetch origin main-presentation:main-presentation || echo "No remote branch yet"
+
+          # Switch to the branch, or create it if it doesn't exist
+          git checkout main-presentation || git checkout -b main-presentation
+
+          # Merge changes from main into it
+          git merge origin/main --no-edit
+
+          # Add and commit your generated files
           git add -f docs/presentation
           git commit -m "Update Quarto presentation" || echo "No changes to commit"
-          git push
+          git push origin main-presentation
